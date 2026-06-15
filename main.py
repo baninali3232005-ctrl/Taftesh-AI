@@ -24,7 +24,14 @@ model = models.efficientnet_b0(weights=None)
 model.classifier[1] = nn.Linear(1280, 2)
 model = model.to(device)
 
-MODEL_PATH = r"E:\Taftesh_AI\model.pth"
+import gdown
+
+MODEL_PATH = "model.pth"
+if not os.path.exists(MODEL_PATH):
+    gdown.download(
+        "https://drive.google.com/uc?id=17mdaSOrXr7cfNIbkhqag2yHCVGk0iorU",
+        MODEL_PATH, quiet=False
+    )
 if os.path.exists(MODEL_PATH):
     try:
         model.load_state_dict(torch.load(MODEL_PATH, map_location=device), strict=False)
